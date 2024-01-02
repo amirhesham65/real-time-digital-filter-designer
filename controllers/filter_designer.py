@@ -44,7 +44,16 @@ class FilterDesigner:
         phase_response = np.angle(h, deg=True)  # Convert phase to degrees
 
         return omega, magnitude_response, phase_response
-
+    
+    def frequencyResponse(self,zeros, poles, gain):
+        zeros = [complex(x, y) for x, y in zeros]
+        poles = [complex(x, y) for x, y in poles]
+        gain = 1
+        w, h = signal.freqz_zpk(zeros, poles, gain)
+        magnitude = 20 * np.log10(np.abs(h))
+        angels = np.unwrap(np.angle(h))
+        return w/max(w), angels, magnitude
+    
     def _plot_responses(self):
         print("plotting")
         frequencies = np.linspace(0, 3, 1000)  # Adjust frequency range as needed
@@ -52,15 +61,15 @@ class FilterDesigner:
             frequencies,
             magnitude_response,
             phase_response,
-        ) = self.compute_magnitude_phase_response(self.zeros, self.poles, frequencies)
+        ) = self.frequencyResponse(self.zeros, self.poles, 1.5)
         # TODO: Refactor to state
         self.window.mag_response_garph.plot(
-            frequencies, 20 * np.log10(magnitude_response), pen="b"
+            frequencies, magnitude_response, pen="b"
         )
-        # self.window.phase_response_garph.plot(frequencies, phase_response, pen="r")
+        self.window.phase_response_garph.plot(frequencies, phase_response, pen="r")
 
         self.window.mag_response_garph.showGrid(x=True, y=True)
-        # self.window.phase_response_garph.showGrid(x=True, y=True)
+        self.window.phase_response_garph.showGrid(x=True, y=True)
 
     def _add_point_to_designer(self, pos, type: PointType) -> None:
         if self._is_inside_unit_circle(pos):
