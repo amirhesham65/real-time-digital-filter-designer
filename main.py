@@ -13,12 +13,12 @@ class MainWindow(uiclass, baseclass):
         # Window and UI configurations
         self.setupUi(self)
         self.setWindowTitle("Real-time Digital Filter Designer")
-        self.show()
 
 
 def main() -> None:
     app = QApplication(sys.argv)
     window = MainWindow()
+    window.show()
     app.exec()
 
 
