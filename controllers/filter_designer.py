@@ -1,6 +1,6 @@
 import numpy as np
 import pyqtgraph as pg
-from PyQt6.QtWidgets import QRadioButton
+from scipy import signal
 
 from models.filter import PointType
 
@@ -21,12 +21,46 @@ class FilterDesigner:
         )
         self.window.zeros_rb.clicked.connect(self._on_radio_button_clicked)
         self.window.poles_rb.clicked.connect(self._on_radio_button_clicked)
+        self.window.clear_points_btn.clicked.connect(self._plot_responses)
 
     def _on_radio_button_clicked(self):
         if self.window.zeros_rb.isChecked():
             self.next_point_type = PointType.ZERO
         if self.window.poles_rb.isChecked():
             self.next_point_type = PointType.POLE
+
+    def compute_magnitude_phase_response(self, zeros, poles, frequencies):
+        print(zeros, poles)
+        zeros = [complex(x, y) for x, y in zeros]
+        poles = [complex(x, y) for x, y in poles]
+        print(zeros, poles)
+        system = signal.TransferFunction(zeros, poles)
+
+        # Evaluate transfer function on the unit circle
+        omega, h = signal.freqresp(system)
+
+        # Calculate magnitude and phase responses
+        magnitude_response = np.abs(h)
+        phase_response = np.angle(h, deg=True)  # Convert phase to degrees
+
+        return omega, magnitude_response, phase_response
+
+    def _plot_responses(self):
+        print("plotting")
+        frequencies = np.linspace(0, 3, 1000)  # Adjust frequency range as needed
+        (
+            frequencies,
+            magnitude_response,
+            phase_response,
+        ) = self.compute_magnitude_phase_response(self.zeros, self.poles, frequencies)
+        # TODO: Refactor to state
+        self.window.mag_response_garph.plot(
+            frequencies, 20 * np.log10(magnitude_response), pen="b"
+        )
+        # self.window.phase_response_garph.plot(frequencies, phase_response, pen="r")
+
+        self.window.mag_response_garph.showGrid(x=True, y=True)
+        # self.window.phase_response_garph.showGrid(x=True, y=True)
 
     def _add_point_to_designer(self, pos, type: PointType) -> None:
         if self._is_inside_unit_circle(pos):

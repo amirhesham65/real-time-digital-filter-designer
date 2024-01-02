@@ -63,9 +63,9 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="clear_points_btn">
             <property name="text">
-             <string>Clear</string>
+             <string>Plot</string>
             </property>
            </widget>
           </item>
