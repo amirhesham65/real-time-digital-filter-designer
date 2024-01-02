@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1280</width>
-    <height>652</height>
+    <height>712</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -66,17 +66,17 @@
          </layout>
         </item>
         <item>
-         <widget class="PlotWidget" name="widget" native="true">
+         <widget class="PlotWidget" name="zeroes_poles_edit_graph" native="true">
           <property name="minimumSize">
            <size>
-            <width>250</width>
-            <height>200</height>
+            <width>230</width>
+            <height>230</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>250</width>
-            <height>200</height>
+            <width>230</width>
+            <height>230</height>
            </size>
           </property>
           <property name="autoFillBackground">
@@ -115,7 +115,7 @@
          </widget>
         </item>
         <item>
-         <widget class="PlotWidget" name="widget_2" native="true">
+         <widget class="PlotWidget" name="mag_response_garph" native="true">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -146,12 +146,12 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>Frequency Response</string>
+           <string>Phase Response</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="PlotWidget" name="widget_3" native="true">
+         <widget class="PlotWidget" name="phase_response_garph" native="true">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -195,7 +195,8 @@
           </property>
           <widget class="QWidget" name="tab_1">
            <attribute name="icon">
-            <iconset theme="battery"/>
+            <iconset theme="battery">
+             <normaloff>.</normaloff>.</iconset>
            </attribute>
            <attribute name="title">
             <string>Library</string>
@@ -299,8 +300,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>248</width>
-             <height>159</height>
+             <width>246</width>
+             <height>195</height>
             </rect>
            </property>
           </widget>
@@ -359,7 +360,7 @@
            </attribute>
            <layout class="QHBoxLayout" name="horizontalLayout_8">
             <item>
-             <widget class="PlotWidget" name="widget_9" native="true">
+             <widget class="PlotWidget" name="paddin_area_graph" native="true">
               <property name="minimumSize">
                <size>
                 <width>200</width>
@@ -474,7 +475,7 @@
          </widget>
         </item>
         <item>
-         <widget class="PlotWidget" name="widget_6" native="true">
+         <widget class="PlotWidget" name="signal_input_graph" native="true">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -510,7 +511,7 @@
          </widget>
         </item>
         <item>
-         <widget class="PlotWidget" name="widget_7" native="true">
+         <widget class="PlotWidget" name="filter_output_graph" native="true">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
             <horstretch>0</horstretch>
