@@ -1,6 +1,12 @@
 from typing import List
+from enum import Enum
 
 from models.signal import Signal
+
+
+class PointType(Enum):
+    ZERO = "zero"
+    POLE = "pole"
 
 
 class Filter:

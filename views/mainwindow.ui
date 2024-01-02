@@ -25,7 +25,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QGroupBox" name="groupBox">
+           <widget class="QGroupBox" name="zeros_poles_grp">
             <property name="title">
              <string>Edit Mode</string>
             </property>
@@ -40,16 +40,22 @@
               <number>5</number>
              </property>
              <item>
-              <widget class="QRadioButton" name="radioButton">
+              <widget class="QRadioButton" name="zeros_rb">
                <property name="text">
                 <string>Zeros</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QRadioButton" name="radioButton_2">
+              <widget class="QRadioButton" name="poles_rb">
                <property name="text">
                 <string>Poles</string>
+               </property>
+               <property name="checked">
+                <bool>false</bool>
                </property>
               </widget>
              </item>
