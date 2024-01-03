@@ -1,5 +1,11 @@
+from enum import Enum
 import numpy as np
 from scipy import signal
+
+
+class PointType(Enum):
+    ZERO = "zero"
+    POLE = "pole"
 
 
 class Filter:
@@ -73,7 +79,7 @@ class Filter:
             response = signal.zpk_eval_response(self.__zeros, self.__poles, self.__gain, w)
         magnitude = 20 * np.log10(np.abs(response))
         # convert from hz into decibels
-        phase = np.unwrap(np.angle(response))  # `np.unwrap` to remove phase discontinuities
+        phase = np.unwrap(np.angle(response))   # `np.unwrap` to remove phase discontinuities
         return w, magnitude, phase
 
     def add_all_pass(self, a: complex):
@@ -95,13 +101,13 @@ class Filter:
             b_list.append(1 / np.conj(a_list[i]))
         self.__zeros = [*self.__zeros, *b_list]
 
-    def remove_zero(self, zero: complex):
+    def remove_zero(self, zero:complex):
         """
         Remove one zero from the filter.
         """
         self.__zeros.remove(zero)
 
-    def remove_pole(self, pole: complex):
+    def remove_pole(self, pole:complex):
         """
         Remove one pole from the filter.
         """
@@ -117,9 +123,9 @@ class Filter:
         """
         Remove all poles from the filter.
         """
-        self.__poles = []
+        self.__poles= []
 
-    def remove_all_pass(self, a: complex):
+    def remove_all_pass(self, a:complex):
         """
         Remove one all-pass filter with coefficient a to the filter.
         """
@@ -136,6 +142,6 @@ class Filter:
         self.__all_pass = []
 
     def apply_filter(self, values: list) -> []:
-        numerator, denominator = signal.zpk2tf(self.__zeros, self.__poles, self.__gain)
+        numerator , denominator = signal.zpk2tf(self.__zeros,self.__poles, self.__gain)
         filtered_signal = np.real(signal.lfilter(numerator, denominator, values))
         return filtered_signal
