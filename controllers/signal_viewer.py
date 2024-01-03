@@ -1,14 +1,7 @@
-from PyQt6.QtCore import QTimer, Qt, QSize
-from PyQt6.QtGui import *
-from PyQt6.QtWidgets import *
-from PyQt6.QtCore import Qt, QSize
-import pyqtgraph as pg
-from models.signal import Signal
-from managers.signal_loader import ISignalLoader, TextSignalLoader, CSVSignalLoader, ExcelXSignalLoader, \
-    ExcelSignalLoader
+from PyQt6.QtCore import QTimer
 from helper.get_signal_from_file import get_signal_from_file
 from math import floor
-
+from models.filter import Filter
 
 class SignalViewer:
     def __init__(self, window):

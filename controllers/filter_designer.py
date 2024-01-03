@@ -2,7 +2,7 @@ import numpy as np
 import pyqtgraph as pg
 from scipy import signal
 
-from models.filter import PointType
+from models.filter import PointType, Filter
 
 
 class FilterDesigner:
@@ -14,6 +14,8 @@ class FilterDesigner:
         self.next_point_type = PointType.ZERO
         self._setup_zeroes_poles_graph()
         self._initialize_signals_slots()
+
+        self.filter = Filter(zeros=self.zeros, poles=self.poles)
 
     def _initialize_signals_slots(self) -> None:
         self.window.zeroes_poles_edit_graph.scene().sigMouseClicked.connect(
@@ -76,8 +78,10 @@ class FilterDesigner:
             x, y = pos.x(), pos.y()
             if type == PointType.ZERO:
                 self.zeros.append((x, y))
+                self.filter.set_zeros([complex(x, y)])
             if type == PointType.POLE:
                 self.poles.append((x, y))
+                self.filter.set_poles([complex(x, y)])
             self.designer_graph.plot(
                 [x],
                 [y],
