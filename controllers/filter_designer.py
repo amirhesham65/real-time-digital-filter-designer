@@ -72,6 +72,7 @@ class FilterDesigner:
 
         self.window.mag_response_garph.showGrid(x=True, y=True)
         self.window.phase_response_garph.showGrid(x=True, y=True)
+        self.window.filter = self.filter
 
     def _add_point_to_designer(self, pos, type: PointType) -> None:
         if self._is_inside_unit_circle(pos):
@@ -90,7 +91,7 @@ class FilterDesigner:
                 symbolPen="r",
                 symbolBrush=0.2,
             )
-
+        
     def _on_designer_clicked(self, event):
         pos = self.designer_graph.plotItem.vb.mapToView(event.pos())
 

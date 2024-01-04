@@ -5,6 +5,7 @@ from PyQt6.QtWidgets import QApplication
 from controllers.filter_designer import FilterDesigner
 from controllers.filter_viewer import FilterViewer
 from controllers.signal_viewer import SignalViewer
+from models.filter import Filter
 
 uiclass, baseclass = pg.Qt.loadUiType("views/mainwindow.ui")
 
@@ -19,12 +20,14 @@ class MainWindow(uiclass, baseclass):
 
         self._initialize_state()
         self._initialize_signals_slots()
+        self.filter = None
 
     def _initialize_state(self) -> None:
         # MVC
         self.filter_designer = FilterDesigner(window=self)
         self.filter_viewer = FilterViewer(window=self)
-        self.signal_viewer = SignalViewer(window=self)
+        self.filter = Filter()
+        self.signal_viewer = SignalViewer(window=self , filter=self.filter)
 
     def _initialize_signals_slots(self) -> None:
         ...
