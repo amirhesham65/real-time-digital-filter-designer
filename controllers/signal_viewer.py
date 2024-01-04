@@ -19,10 +19,6 @@ class SignalViewer:
         self.largest_x_filtered_data = []
         self.largest_y_filtered_data = []
         self.data_index = 0
-        self.y_min = None
-        self.y_max = None
-        self.x_vec = []
-        self.y_vec = []
         self.is_plotting = False
         self.speed = 1
         self.filter = filter
@@ -35,25 +31,30 @@ class SignalViewer:
     def import_signal(self):
         self.signal = get_signal_from_file(self.window)
         self.filtered_signal = Signal(x_vec=self.signal.x_vec, y_vec=self.filter.apply_filter(self.signal.y_vec))
-        self.render_signal_to_channel(signal=self.signal , channel = self.window.signal_input_graph, x_data= self.x_data, y_data= self.y_data, largest_x_data=self.largest_x_data)
-        self.render_signal_to_channel(signal=self.filtered_signal, channel = self.window.filter_output_graph, x_data= self.x_filtered_data, y_data= self.y_filtered_data, largest_x_data=self.largest_x_filtered_data)
+        
+        self.render(self.window.signal_input_graph,self.window.filter_output_graph)
 
-    def render_signal_to_channel(self, signal, channel, x_data, y_data, largest_x_data):
+    def render(self,channel1,channel2):
         self.timer.start(floor(8 / self.speed))  # Update every 8/speed ms
-        x_data.extend(signal.x_vec)
-        y_data.extend(signal.y_vec)
-        largest_x_data = signal.x_vec
-        channel.plot(self.x_data, self.y_data)
+        self.x_data.extend(self.signal.x_vec)
+        self.y_data.extend(self.signal.y_vec)
+        self.largest_x_data = self.signal.x_vec
+        self.x_filtered_data.extend(self.filtered_signal.x_vec)
+        self.y_filtered_data.extend(self.filtered_signal.y_vec)
+        self.largest_x_filtered_data = self.filtered_signal.x_vec
+        channel1.plot(self.x_data, self.y_data)
+        channel2.plot(self.x_filtered_data, self.y_filtered_data)
         self.data_index = 0
         self.is_plotting = True
+
 
     def update_plot(self):
         if self.is_plotting:
             if self.data_index < len(self.largest_x_data):
                 x_data = self.largest_x_data[: self.data_index + 1]
-                x_filtered_data = self.largest_x_filtered_data[: self.data_index + 1]
+                self.x_filtered_data = self.largest_x_filtered_data[: self.data_index + 1]
                 self.window.signal_input_graph.setXRange(x_data[-1] - 1, x_data[-1])
-                self.window.signal_input_graph.setXRange(x_filtered_data[-1] - 1, x_filtered_data[-1])
+                self.window.filter_output_graph.setXRange(self.x_filtered_data[-1] - 1, self.x_filtered_data[-1])
                 self.data_index += 1
             else:
                 self.is_plotting = False

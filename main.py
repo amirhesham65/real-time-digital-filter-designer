@@ -24,10 +24,9 @@ class MainWindow(uiclass, baseclass):
 
     def _initialize_state(self) -> None:
         # MVC
+        self.filter = Filter()
         self.filter_designer = FilterDesigner(window=self)
         self.filter_viewer = FilterViewer(window=self)
-        self.filter = Filter()
-        self.signal_viewer = SignalViewer(window=self , filter=self.filter)
 
     def _initialize_signals_slots(self) -> None:
         ...

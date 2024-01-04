@@ -3,6 +3,7 @@ import pyqtgraph as pg
 from scipy import signal
 
 from models.filter import PointType, Filter
+from controllers.signal_viewer import SignalViewer
 
 
 class FilterDesigner:
@@ -73,6 +74,7 @@ class FilterDesigner:
         self.window.mag_response_garph.showGrid(x=True, y=True)
         self.window.phase_response_garph.showGrid(x=True, y=True)
         self.window.filter = self.filter
+        self.signal_viewer = SignalViewer(window=self.window , filter=self.filter)
 
     def _add_point_to_designer(self, pos, type: PointType) -> None:
         if self._is_inside_unit_circle(pos):
